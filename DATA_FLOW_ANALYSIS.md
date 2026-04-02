@@ -1,4 +1,4 @@
-# Frontend Data Flow Analysis
+﻿# Frontend Data Flow Analysis
 
 ## Overview
 This document explains where and how data flows through your frontend application.
@@ -11,13 +11,13 @@ This document explains where and how data flows through your frontend applicatio
 #### Login Flow:
 ```
 User Input (email, password)
-    ?
+    ↓
 fetch('http://localhost:5000/api/auth/login', POST)
-    ?
+    ↓
 Response Data received
-    ?
+    ↓
 localStorage.setItem('user', JSON.stringify(data))
-    ?
+    ↓
 DOM Elements Updated
 ```
 
@@ -58,7 +58,7 @@ DOM Elements Updated
 ```javascript
 userNameEl = document.getElementById('userName')           // First name
 displayNameEl = document.getElementById('displayName')     // Full name
-displayEmailEl = document.getElementById('displayEmail')   // Email
+displayEmailEl = document.getElementById('displayEmail')   // Email 
 memberSinceEl = document.getElementById('memberSince')     // Join date
 welcomeAvatar = document.getElementById('welcomeAvatar')   // Avatar letter
 ```
@@ -73,35 +73,35 @@ welcomeAvatar = document.getElementById('welcomeAvatar')   // Avatar letter
 ## 4. **Data Flow Diagram**
 
 ```
-???????????????????????????????????????????????????????????????
-?                    FRONTEND DATA FLOW                        ?
-???????????????????????????????????????????????????????????????
+┌─────────────────────────────────────────────────────────────┐
+│                    FRONTEND DATA FLOW                        │
+└─────────────────────────────────────────────────────────────┘
 
 1. USER ACTIONS (Input)
-   ??? Login Form Submission
-   ??? Register Form Submission
-   ??? Logout Button Click
+   └─→ Login Form Submission
+   └─→ Register Form Submission
+   └─→ Logout Button Click
 
 2. API CALLS (Network)
-   ??? fetch() to http://localhost:5000/api/auth/*
-   ??? Request: { email, password, firstName, lastName }
-   ??? Response: { firstName, lastName, email, ... }
+   └─→ fetch() to http://localhost:5000/api/auth/*
+   └─→ Request: { email, password, firstName, lastName }
+   └─→ Response: { firstName, lastName, email, ... }
 
 3. BROWSER STORAGE (Persistence)
-   ??? localStorage.setItem('user', JSON.stringify(data))
-   ??? Retrieved on page load
-   ??? Cleared on logout
+   └─→ localStorage.setItem('user', JSON.stringify(data))
+   └─→ Retrieved on page load
+   └─→ Cleared on logout
 
 4. DOM UPDATES (Rendering)
-   ??? innerHTML/innerText/value updates
-   ??? Class additions/removals
-   ??? Display user information
-   ??? Show notifications
+   └─→ innerHTML/innerText/value updates
+   └─→ Class additions/removals
+   └─→ Display user information
+   └─→ Show notifications
 
 5. OUTPUT (User Sees)
-   ??? Dashboard with user info
-   ??? Notifications (success/error)
-   ??? Profile page with data populated
+   └─→ Dashboard with user info
+   └─→ Notifications (success/error)
+   └─→ Profile page with data populated
 ```
 
 ---
@@ -166,8 +166,8 @@ localStorage.removeItem('user')
 
 ### Page Load:
 1. Check if user exists in localStorage
-2. If exists ? Auto-login to dashboard
-3. If not ? Show login page
+2. If exists → Auto-login to dashboard
+3. If not → Show login page
 
 ### After Login:
 1. Send credentials to API
@@ -220,21 +220,21 @@ localStorage.removeItem('user')
 
 ## 10. **Important Notes**
 
-? **Data stored in localStorage is:**
+✅ **Data stored in localStorage is:**
 - Persistent across browser sessions
 - Accessible only to this domain
 - Visible in browser DevTools (not secure for sensitive data)
 - String-based (JSON serialized)
 
-?? **Security Considerations:**
+⚠️ **Security Considerations:**
 - Passwords stored in localStorage are visible
 - Not recommended for production
 - Consider using HTTP-only cookies with backend sessions
 - Implement CSRF protection
 - Use HTTPS in production
 
-?? **Data Flow Debugging:**
-- Check Browser DevTools ? Application ? Local Storage
+🔧 **Data Flow Debugging:**
+- Check Browser DevTools → Application → Local Storage
 - Monitor Network tab for API calls
 - Use Console to inspect `localStorage.getItem('user')`
 - Check DOM elements for rendered data
@@ -244,10 +244,10 @@ localStorage.removeItem('user')
 ## Summary
 
 **Frontend data flow:**
-1. **Input** ? User fills form
-2. **API Call** ? fetch() to backend
-3. **Storage** ? Data saved to localStorage
-4. **Display** ? DOM elements updated
-5. **Output** ? User sees personalized dashboard
+1. **Input** → User fills form
+2. **API Call** → fetch() to backend
+3. **Storage** → Data saved to localStorage
+4. **Display** → DOM elements updated
+5. **Output** → User sees personalized dashboard
 
 All user data currently flows through localStorage and is displayed in the dashboard page.
