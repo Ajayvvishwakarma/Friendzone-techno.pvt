@@ -1,0 +1,11 @@
+node_modules/
+.vs/
+obj/
+bin/
+.DS_Store
+*.log
+.env
+.env.local
+*.sql
+test.txt
+*.tmp

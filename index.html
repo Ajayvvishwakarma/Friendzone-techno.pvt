@@ -1,0 +1,854 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ===== LOGIN PAGE ===== -->
+    <div id="loginPage" class="page active">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Sign In</h1>
+                    <p>Welcome back to your dashboard</p>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <div class="password-input-group">
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">???</button>
+                        </div>
+                    </div>
+
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe" style="margin-bottom: 0;">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="#" onclick="switchPage('registerPage')">Sign Up</a></p>
+                    <p style="margin-top: 10px;"><a href="#" onclick="switchPage('forgotPage')" class="forgot-link">Forgot Password?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== REGISTER PAGE ===== -->
+    <div id="registerPage" class="page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Create Account</h1>
+                    <p>Join us today</p>
+                </div>
+
+                <form id="registerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="First name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Last name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerEmail">Email Address</label>
+                        <input type="email" id="registerEmail" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <div class="password-input-group">
+                            <input type="password" id="registerPassword" placeholder="Create a password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('registerPassword')">???</button>
+                        </div>
+                        <div class="password-strength">
+                            <div class="strength-bar">
+                                <div id="strengthBar" class="strength-fill"></div>
+                            </div>
+                            <div id="strengthText" class="strength-text">Password strength</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="password-input-group">
+                            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">???</button>
+                        </div>
+                    </div>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" required>
+                        I agree to the Terms of Service
+                    </label>
+
+                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Create Account</button>
+                </form>
+
+                <div class="auth-footer">
+                    <p style="margin-top: 20px;">Already have an account? <a href="#" onclick="switchPage('loginPage')">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FORGOT PASSWORD PAGE ===== -->
+    <div id="forgotPage" class="page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Reset Password</h1>
+                    <p>Enter your email to receive reset instructions</p>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    ? Check your email for password reset instructions!
+                </div>
+
+                <form id="forgotForm">
+                    <div class="form-group">
+                        <label for="forgotEmail">Email Address</label>
+                        <input type="email" id="forgotEmail" placeholder="Enter your email" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send Reset Link</button>
+                </form>
+
+                <div class="auth-footer">
+                    <p style="margin-top: 20px;">Remember your password? <a href="#" onclick="switchPage('loginPage')">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== DASHBOARD PAGE ===== -->
+    <div id="dashboardPage" class="page">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <h2>Dashboard</h2>
+                </div>
+                <div class="navbar-menu">
+                    <a href="#" class="nav-link" onclick="switchPage('dashboardPage'); return false;">Home</a>
+                    <a href="#" class="nav-link" onclick="switchPage('settingsPage'); return false;">Settings</a>
+                    <a href="#" class="nav-link" onclick="switchPage('helpPage'); return false;">Help</a>
+                    <button class="btn-logout" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="dashboard-page">
+            <div class="dashboard-container">
+                <!-- Breadcrumb Navigation -->
+                <div class="breadcrumb">
+                    <a href="#" onclick="switchPage('dashboardPage'); return false;">Dashboard</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span class="breadcrumb-current">Home</span>
+                </div>
+
+                <!-- Welcome Banner -->
+                <div class="welcome-banner">
+                    <div class="welcome-left">
+                        <h2><span class="user-avatar" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 50%; font-weight: 800; margin-right: 10px;" id="welcomeAvatar">A</span>Welcome back, <span id="userName" class="user-highlight">User</span>! 👋</h2>
+                        <p class="clock-display">⏰ --:--:--</p>
+                    </div>
+                        <p id="welcomeSubtitle">Here's what you need to know today</p>
+                    </div>
+                    <div class="welcome-right">
+                        <div class="welcome-stat">
+                            <div class="stat-icon">📊</div>
+                            <span class="stat-value">24</span>
+                            <span class="stat-name">Logins</span>
+                        </div>
+                        <div class="welcome-stat">
+                            <div class="stat-icon">✓</div>
+                            <span class="stat-value">Verified</span>
+                            <span class="stat-name">Email</span>
+                        </div>
+                        <div class="welcome-stat">
+                            <div class="stat-icon">🟢</div>
+                            <span class="stat-value">Active</span>
+                            <span class="stat-name">Status</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Cards Grid -->
+                <div class="dashboard-content">
+                    <!-- Account Strength Score -->
+                    <div class="account-strength"></div>
+
+                    <!-- Last Login Info -->
+                    <div class="last-login-info"></div>
+
+                    <!-- Profile Information Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Profile Information</h3>
+                            <span class="card-icon"></span>
+                        </div>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-label">Full Name</span>
+                                <span class="info-value" id="displayName">User Name</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Email</span>
+                                <span class="info-value" id="displayEmail">email@example.com</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Member Since</span>
+                                <span class="info-value" id="memberSince">Today</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status</span>
+                                <span class="status-badge active" id="statusBadge">✅ Active</span>
+                            </div>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="btn-secondary" onclick="openEditModal()">Edit Profile</button>
+                            <button class="btn-secondary" onclick="openPhotoModal()">Upload Photo</button>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Security Settings Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Security Settings</h3>
+                            <span class="card-icon"></span>
+                        </div>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-label">Two-Factor</span>
+                                <span class="status-badge inactive">Disabled</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Password</span>
+                                <span class="status-badge active"> Strong</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Sessions</span>
+                                <span class="info-value strong">1 Active</span>
+                            </div>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="btn-secondary" onclick="openPasswordModal()">Change Password</button>
+                            <button class="btn-secondary">View Sessions</button>
+                        </div>
+                    </div>
+
+                    <!-- Account Activity Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Account Activity</h3>
+                            <span class="card-icon">??</span>
+                        </div>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-label">Last Login</span>
+                                <span class="info-value">Today</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Last IP Address</span>
+                                <span class="info-value">192.168.x.x</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Device</span>
+                                <span class="info-value">Web Browser</span>
+                            </div>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="btn-secondary">View Activity Log</button>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Notifications</h3>
+                            <span class="card-icon"></span>
+                        </div>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-label">Email Notifications</span>
+                                <span class="status-badge active">? On</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Security Alerts</span>
+                                <span class="status-badge active">? On</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Updates</span>
+                                <span class="status-badge inactive">Off</span>
+                            </div>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="btn-secondary">Manage Preferences</button>
+                        </div>
+                    </div>
+
+                    <!-- Danger Zone Card -->
+                    <div class="dashboard-card danger-card">
+                        <div class="card-header">
+                            <h3>Danger Zone</h3>
+                            <span class="card-icon">??</span>
+                        </div>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-label">Account Status</span>
+                                <span class="status-badge active">? Active</span>
+                            </div>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="btn-secondary danger">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODALS ===== -->
+
+    <!-- Edit Profile Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2>Edit Profile</h2>
+            <form id="editProfileForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editFirstName">First Name</label>
+                        <input type="text" id="editFirstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editLastName">Last Name</label>
+                        <input type="text" id="editLastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editPhone">Phone</label>
+                    <input type="text" id="editPhone" placeholder="Optional">
+                </div>
+
+                <div class="form-group">
+                    <label for="editBio">Bio</label>
+                    <textarea id="editBio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Photo Upload Modal -->
+    <div id="photoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePhotoModal()">&times;</span>
+            <h2>Upload Profile Photo</h2>
+            <div class="photo-upload-container">
+                <div class="photo-preview">
+                    <img id="photoPreview" src="avatar-placeholder.svg" alt="Photo Preview">
+                </div>
+
+                <div id="uploadArea" class="upload-area">
+                    <p>?? Drag and drop your photo here</p>
+                    <p style="font-size: 12px; color: #999;">or click to browse</p>
+                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                </div>
+
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('photoInput').click()" style="width: 100%; margin-bottom: 10px;">
+                    Browse Files
+                </button>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-primary" onclick="uploadPhoto()">Upload</button>
+                    <button type="button" class="btn btn-secondary" onclick="closePhotoModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePasswordModal()">&times;</span>
+            <h2>Change Password</h2>
+            <form id="changePasswordForm">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <div class="password-input-group">
+                        <input type="password" id="currentPassword" placeholder="Enter current password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('currentPassword')">???</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <div class="password-input-group">
+                        <input type="password" id="newPassword" placeholder="Enter new password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('newPassword')">???</button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div id="newPasswordStrength" class="strength-fill"></div>
+                        </div>
+                        <div id="newPasswordStrengthText" class="strength-text">Password strength</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmNewPassword">Confirm Password</label>
+                    <div class="password-input-group">
+                        <input type="password" id="confirmNewPassword" placeholder="Confirm new password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('confirmNewPassword')">???</button>
+                    </div>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                    <button type="button" class="btn btn-secondary" onclick="closePasswordModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== SETTINGS PAGE ===== -->
+    <div id="settingsPage" class="page">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <h2>Settings</h2>
+                </div>
+                <div class="navbar-menu">
+                    <a href="#" class="nav-link" onclick="switchPage('dashboardPage'); return false;">Home</a>
+                    <a href="#" class="nav-link" onclick="switchPage('settingsPage'); return false;">Settings</a>
+                    <a href="#" class="nav-link" onclick="switchPage('helpPage'); return false;">Help</a>
+                    <button class="btn-logout" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="dashboard-page">
+            <div class="dashboard-container">
+                <!-- Breadcrumb Navigation -->
+                <div class="breadcrumb">
+                    <a href="#" onclick="switchPage('dashboardPage'); return false;">Dashboard</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span class="breadcrumb-current">Settings</span>
+                </div>
+
+                <div class="settings-content">
+                    <!-- Account Settings -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <h3>Account Settings</h3>
+                        </div>
+                        <div class="settings-item">
+                            <label>Email Address</label>
+                            <div class="settings-value-group">
+                                <span id="settingsEmail">email@example.com</span>
+                                <button class="btn btn-secondary" onclick="openEditModal()">Change</button>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <label>Password</label>
+                            <div class="settings-value-group">
+                                <span>••••••••</span>
+                                <button class="btn btn-secondary" onclick="openPasswordModal()">Change</button>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <label>Two-Factor Authentication</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="twoFactorToggle">
+                                <label for="twoFactorToggle" class="toggle-label">Enable 2FA</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Settings -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <h3>Privacy & Security</h3>
+                        </div>
+                        <div class="settings-item">
+                            <label>Profile Visibility</label>
+                            <select class="settings-select">
+                                <option>Public</option>
+                                <option>Friends Only</option>
+                                <option>Private</option>
+                            </select>
+                        </div>
+                        <div class="settings-item">
+                            <label>Activity Status</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="activityToggle" checked>
+                                <label for="activityToggle" class="toggle-label">Show my activity</label>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <label>Email Notifications</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="emailToggle" checked>
+                                <label for="emailToggle" class="toggle-label">Receive email updates</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Display Settings -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <h3>Display Settings</h3>
+                        </div>
+                        <div class="settings-item">
+                            <label>Theme</label>
+                            <select class="settings-select">
+                                <option selected>Light</option>
+                                <option>Dark</option>
+                                <option>Auto</option>
+                            </select>
+                        </div>
+                        <div class="settings-item">
+                            <label>Language</label>
+                            <select class="settings-select">
+                                <option selected>English</option>
+                                <option>Hindi</option>
+                                <option>Spanish</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Session Management -->
+                    <div class="settings-card danger">
+                        <div class="settings-header">
+                            <h3>Session Management</h3>
+                        </div>
+                        <div class="settings-item">
+                            <label>Active Sessions</label>
+                            <span class="settings-value">1 Active Session</span>
+                        </div>
+                        <button class="btn btn-secondary danger" style="width: 100%; margin-top: 15px;">Logout All Other Sessions</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HELP PAGE ===== -->
+    <div id="helpPage" class="page">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <h2>Help & Support</h2>
+                </div>
+                <div class="navbar-menu">
+                    <a href="#" class="nav-link" onclick="switchPage('dashboardPage'); return false;">Home</a>
+                    <a href="#" class="nav-link" onclick="switchPage('settingsPage'); return false;">Settings</a>
+                    <a href="#" class="nav-link" onclick="switchPage('helpPage'); return false;">Help</a>
+                    <button class="btn-logout" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="dashboard-page">
+            <div class="dashboard-container">
+                <!-- Breadcrumb Navigation -->
+                <div class="breadcrumb">
+                    <a href="#" onclick="switchPage('dashboardPage'); return false;">Dashboard</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span class="breadcrumb-current">Help</span>
+                </div>
+
+                <div class="help-content">
+                    <!-- Search Bar -->
+                    <div class="search-container">
+                        <div class="search-input-wrapper">
+                            <input type="text" class="search-input" placeholder="🔍 Search help...">
+                        </div>
+                    </div>
+
+                    <!-- FAQ Section -->
+                    <div class="help-section">
+                        <h3>❓ Frequently Asked Questions</h3>
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>How do I update my profile information?</span>
+                                <span class="faq-arrow">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                Go to Dashboard → Profile Information card → Click "Edit Profile" button. Fill in your details and click "Save Changes".
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>How do I reset my password?</span>
+                                <span class="faq-arrow">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                On the login page, click "Forgot Password?" and enter your email. We'll send you a reset link to your email address.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>How do I upload a profile photo?</span>
+                                <span class="faq-arrow">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                Go to Dashboard → Profile Information card → Click "Upload Photo". You can drag and drop or browse your computer for an image.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>How do I change my email address?</span>
+                                <span class="faq-arrow">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                Go to Settings → Account Settings → Click "Change" next to Email Address. Verify your new email and confirm the change.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Is my data secure?</span>
+                                <span class="faq-arrow">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                Yes! We use industry-standard encryption and security protocols. Your data is protected with SSL/TLS encryption.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Support -->
+                    <div class="help-section">
+                        <h3>📞 Contact Support</h3>
+                        <div class="support-cards">
+                            <div class="support-card">
+                                <div class="support-icon">📧</div>
+                                <h4>Email Support</h4>
+                                <p>support@example.com</p>
+                                <p class="support-desc">Response time: 24 hours</p>
+                            </div>
+                            <div class="support-card">
+                                <div class="support-icon">💬</div>
+                                <h4>Live Chat</h4>
+                                <p>Available 9 AM - 6 PM</p>
+                                <p class="support-desc">Click the chat icon in bottom right</p>
+                            </div>
+                            <div class="support-card">
+                                <div class="support-icon">📱</div>
+                                <h4>Phone Support</h4>
+                                <p>+1-800-HELP-NOW</p>
+                                <p class="support-desc">Available Mon-Fri, 9 AM - 5 PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Getting Started -->
+                    <div class="help-section">
+                        <h3>🚀 Getting Started</h3>
+                        <div class="getting-started-steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Create an Account</h4>
+                                    <p>Click "Sign Up" on the login page and fill in your details.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Complete Your Profile</h4>
+                                    <p>Add your photo and information to make your profile complete.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Explore Dashboard</h4>
+                                    <p>Check out all features in your dashboard and customize settings.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h4>Manage Your Account</h4>
+                                    <p>Update your settings and manage your security preferences.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="dark-mode-toggle" title="Toggle Dark Mode">
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.64 13a1 1 0 0 0-1.05-.14 8 8 0 1 1 .12-11.78 1 1 0 0 0 1.07-.27A10 10 0 1 0 21.64 13z"/>
+        </svg>
+    </button>
+
+    <!-- ===== DATA STORAGE VIEWER PAGE ===== -->
+    <div id="dataViewerPage" class="page">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <h2>Data Storage Viewer</h2>
+                </div>
+                <div class="navbar-menu">
+                    <a href="#" class="nav-link" onclick="switchPage('dashboardPage'); return false;">Home</a>
+                    <a href="#" class="nav-link" onclick="switchPage('settingsPage'); return false;">Settings</a>
+                    <a href="#" class="nav-link" onclick="switchPage('dataViewerPage'); return false;">Data</a>
+                    <button class="btn-logout" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="dashboard-page">
+            <div class="dashboard-container">
+                <!-- Breadcrumb Navigation -->
+                <div class="breadcrumb">
+                    <a href="#" onclick="switchPage('dashboardPage'); return false;">Dashboard</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span class="breadcrumb-current">Data Storage</span>
+                </div>
+
+                <h2 style="margin-top: 20px;">📊 Frontend Data Storage Viewer</h2>
+                <p style="color: #666; margin-bottom: 20px;">View all data stored in your browser's localStorage</p>
+
+                <!-- Storage Stats -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Storage Statistics</h3>
+                        <span class="card-icon">📈</span>
+                    </div>
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <span class="info-label">Total Users Registered</span>
+                            <span class="info-value" id="totalUsers">0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Storage Location</span>
+                            <span class="info-value">Browser localStorage</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Last Updated</span>
+                            <span class="info-value" id="lastUpdated">Now</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- All Registered Users -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>All Registered Users (Frontend Storage)</h3>
+                        <span class="card-icon">👥</span>
+                    </div>
+                    <div id="usersListContainer" style="max-height: 500px; overflow-y: auto;">
+                        <p style="text-align: center; color: #999; padding: 20px;">Loading users...</p>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn-secondary" onclick="refreshFrontendData()">🔄 Refresh</button>
+                        <button class="btn-secondary" onclick="viewFrontendDataConsole()">📋 View in Console</button>
+                        <button class="btn-secondary danger" onclick="clearAllFrontendData()">🗑️ Clear All</button>
+                    </div>
+                </div>
+
+                <!-- Current User Data -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Current User Data</h3>
+                        <span class="card-icon">👤</span>
+                    </div>
+                    <div id="currentUserData" style="background: #f5f5f5; padding: 15px; border-radius: 8px; font-family: monospace; white-space: pre-wrap; word-break: break-word;">
+                        No user logged in
+                    </div>
+                </div>
+
+                <!-- Raw JSON Export -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Raw Data Export (JSON)</h3>
+                        <span class="card-icon">💾</span>
+                    </div>
+                    <textarea id="jsonExport" readonly style="width: 100%; height: 200px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: monospace; font-size: 12px;"></textarea>
+                    <div class="card-buttons">
+                        <button class="btn-secondary" onclick="copyJsonToClipboard()">📋 Copy JSON</button>
+                        <button class="btn-secondary" onclick="downloadJsonFile()">⬇️ Download JSON</button>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="dashboard-card" style="background: #e8f5e9; border-left: 4px solid #4caf50;">
+                    <div class="card-header">
+                        <h3>ℹ️ About Frontend Data Storage</h3>
+                    </div>
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <span class="info-label">What is localStorage?</span>
+                            <span class="info-value">Browser's local storage that persists even after closing the browser</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Data Stored:</span>
+                            <span class="info-value">User registrations, profile data, settings, and preferences</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Access:</span>
+                            <span class="info-value">Open browser DevTools (F12) → Application → localStorage</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Persistence:</span>
+                            <span class="info-value">Data stays until manually cleared or browser data is deleted</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
