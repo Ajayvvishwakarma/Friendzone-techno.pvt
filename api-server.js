@@ -1,5 +1,4 @@
 const http = require('http');
-const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
@@ -75,8 +74,9 @@ const server = http.createServer((req, res) => {
                 }
             } catch (error) {
                 console.error('? Login Error:', error.message);
+                console.error('? Full Error:', error);
                 res.writeHead(400, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: 'Invalid request' }));
+                res.end(JSON.stringify({ error: error.message }));
             }
         });
         return;
