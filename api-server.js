@@ -47,7 +47,22 @@ const server = http.createServer((req, res) => {
         req.on('data', chunk => body += chunk);
         req.on('end', async () => {
             try {
+                if (!body) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: 'Request body is empty' }));
+                    console.log('❌ LOGIN ERROR: Empty body received');
+                    return;
+                }
+                
                 const data = JSON.parse(body);
+                
+                if (!data.email || !data.password) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: 'Missing email or password' }));
+                    console.log('❌ LOGIN ERROR: Missing email or password');
+                    return;
+                }
+                
                 const connection = await pool.getConnection();
 
                 const [rows] = await connection.query(
@@ -88,7 +103,22 @@ const server = http.createServer((req, res) => {
         req.on('data', chunk => body += chunk);
         req.on('end', async () => {
             try {
+                if (!body) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: 'Request body is empty' }));
+                    console.log('❌ REGISTRATION ERROR: Empty body received');
+                    return;
+                }
+                
                 const data = JSON.parse(body);
+                
+                if (!data.email || !data.password || !data.firstName || !data.lastName) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: 'Missing required fields: email, password, firstName, lastName' }));
+                    console.log('❌ REGISTRATION ERROR: Missing fields', { email: data.email, firstName: data.firstName });
+                    return;
+                }
+                
                 const connection = await pool.getConnection();
 
                 // Check if user already exists

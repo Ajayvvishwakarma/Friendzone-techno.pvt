@@ -168,7 +168,7 @@ const server = http.createServer((req, res) => {
 
     // Default 404
     res.writeHead(404, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ error: 'Not Found' }));
+    res.end(JSON.stringify({ error: 'Not Found' })); 
 });
 
 server.listen(PORT, HOST, () => {

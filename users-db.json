@@ -13,7 +13,14 @@
       "lastName": "Rai",
       "email": "soni@gmail.com",
       "password": "12345678"
+    },
+    {
+      "id": 3,
+      "firstName": "shita",
+      "lastName": "kumari",
+      "email": "shita1@gmail.com",
+      "password": "Ajay@123"
     }
   ],
-  "nextId": 3
+  "nextId": 4
 }
